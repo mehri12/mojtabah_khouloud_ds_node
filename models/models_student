@@ -1,0 +1,36 @@
+
+const joi = require('joi');
+
+
+
+
+let student_schema=joi.object({
+  name:joi.string().pattern(new RegExp('[^a-zA-Z0-9]{3,20}$')).required(),
+  classe:joi.string().alphanum().min(3).max(20).required(),
+  modules:joi.array().items(
+        joi.object({
+          module: joi.string().required(),
+          note: joi.number().min(0).max(20).required(),
+        })
+      
+  ).required(),
+  moyenne:joi.number().integer().min(0).max(20).required(),
+      });
+
+let student_update_schema=joi.object({
+    name:joi.string().pattern(new RegExp('[^a-zA-Z0-9]{3,20}$')),
+    classe:joi.string().alphanum().min(3).max(20),
+    modules:joi.array().items( 
+        joi.object({
+          module: joi.string().required(),
+          note: joi.number().min(0).max(20).required(),
+        })
+      
+    ).required(),
+      moyenne:joi.number().integer().min(0).max(20).required(),
+    
+  });
+
+
+  module.exports.student_schema=student_schema;
+  module.exports.student_update_schema=student_update_schema;
